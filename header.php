@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Online Shopping Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!-- Sweet Alert  -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <!-- OwlCarousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" />
+
+    <!-- slick Slider -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300&display=swap" rel="stylesheet">
+
+    <!--Style sheet-->
+    <link rel="stylesheet" href="Style/StyleCss.css">
+
+<?php 
+
+// require functions.php file
+require ('functions.php');
+
+?>
+
+
+</head>
+
+
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<!-- Start header -->
+<header id="header">
+ <div class="strip d-flex justify-content-between px-4 py-1 bg-light">
+     <p class="text-black-50" style="font-size:14px;margin:0px; font-family: 'Kiwi Maru', serif;" >irbid-jordan Alhoson Street </p>
+
+     <?php
+     $result = '';
+     /** @var TYPE_NAME $Proudects */
+
+     if(isset($_SESSION["login_user"])){
+         $result .= '
+                <div class="sub-menu-parent mr-5">
+                   <span class="px-3 font-weight-bold text-info" style="cursor: pointer;"><i class="fa fa-user lazyloaded"></i>&nbsp; Welcome/'.getUserName().'</span>
+                   <div class="sub-menu bg-light" style="width: 135%;">
+                       <div> <a href="UserLogIn/LogOut.php" class="px-3  font-weight-bold text-info"><i class="fas fa-sign-out-alt"></i> &nbsp;LogOut</a></div>
+                       <div> <a href="WishlistPage.php" class="px-3  font-weight-bold text-info"><i class="fas fa-heart"></i> &nbsp;Favorite('.count($Proudects->getData('wishlist')).')</a></div>
+                   </div>
+               </div>
+         ';
+     }else{
+         $result .= '
+               <div class="sub-menu-parent mr-3">
+                   <span class="px-3 font-weight-bold text-info" style="cursor: pointer;"><i class="fa fa-user lazyloaded"></i>&nbsp; Sign In</span>
+                   <div class="sub-menu bg-light" style="width: 135%;">
+                       <div> <a href="UserLogIn/index.php" class="font-weight-bold text-info"><i class="fas fa-sign-in-alt"></i>&nbsp;LogIn/Register</a></div>
+                       <div> <a href="WishlistPage.php" class="px-3 font-weight-bold text-info"><i class="fas fa-heart"></i> &nbsp;Favorite('.count($Proudects->getData('wishlist')).')</a></div>
+                   </div>
+               </div>
+         ';
+     }
+
+     echo $result;
+     ?>
+
+ </div>
+
+<!-- NavBar -->	
+<section id="nav-bar">
+<nav id="navbar_top" class="navbar navbar-inverse navbar-expand-lg navbar-dark" style="background-color:#66BFBF;" >
+  <a class="navbar-brand font-weight-bold" style="font-family:Rubik;" href="index.php" >RADMY SHOP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav m-auto" style="font-family:Rubik;" >
+      <li class="nav-item active">
+        <a class="nav-link cool-Link" href="#header">Home</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link cool-Link" href="#category">Category</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cool-Link" href="#top-sale">Top Sale</a>
+      </li>
+      <li class="nav-item sub-menu-parent">
+        <a class="nav-link dropdown-toggle" href="" id="navbar_drop">Shop</a>
+        <div class="sub-menu" style="background-color: #66BFBF;">
+
+          <a class="nav-link cool-Link font-weight-bold text-light" href="LaptopPage.php">Laptop</a>
+          <a class="nav-link cool-Link font-weight-bold text-light" href="MobilePage.php">Mobile</a>
+          <a class="nav-link cool-Link font-weight-bold text-light" href="WatchesPage.php">Watches</a>
+
+        </div>
+      </li>
+     <li class="nav-item">
+        <a class="nav-link cool-Link" href="#Recently-Arrived">Recently Arrived</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cool-Link" href="#footer">Contact</a>
+      </li>
+    </ul>
+    
+    <!-- For Search Icon --> 
+    <div class="pr-1">
+     <form action="" id="demo-2">
+       <input type="search" placeholder="Search">
+     </form>
+    </div>
+    
+    <!-- For Shopping cart Icon -->
+      <form action="#" class="font-size-14 font-rale">
+      <a href="CartPage.php" class="py-2 rounded-pill" style="background-color:#003859;" >
+      <span class="font-size-16 px-2 text-white"><i class="fas fa-shopping-cart"></i></span>
+      <span class="px-3 py-2 rounded-pill text-dark bg-light"><?php echo count($Proudects->getData('cart')); ?></span>
+      </a>
+      </form>
+      
+  </div>
+</nav>
+</section>
+<!-- /NavBar -->
+
+</header>
+<!-- /End Start header -->
+<!-- *********************************************************************************************** -->
+
+<!-- Start main -->
+<main>
+
+
